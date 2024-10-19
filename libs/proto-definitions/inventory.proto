@@ -29,7 +29,7 @@ message InventoryHistory {
 }
 
 message IsAvailable {
-  boolean is_available = 1;
+  bool is_available = 1;
 }
 
 service InventoryService {
