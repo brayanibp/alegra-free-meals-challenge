@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/free-meals/src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/free-meals/tsconfig.app.json",
+    "assets": [
+      "**/*.proto"
+    ],
+    "watchAssets": true
+  },
+  "monorepo": true,
+  "root": "apps/free-meals",
+  "projects": {
+    "free-meals": {
+      "type": "application",
+      "root": "apps/free-meals",
+      "entryFile": "main",
+      "sourceRoot": "apps/free-meals/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/free-meals/tsconfig.app.json"
+      }
+    },
+    "order-service": {
+      "type": "application",
+      "root": "apps/order-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/order-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/order-service/tsconfig.app.json"
+      }
+    },
+    "kitchen-service": {
+      "type": "application",
+      "root": "apps/kitchen-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/kitchen-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/kitchen-service/tsconfig.app.json"
+      }
+    },
+    "inventory-service": {
+      "type": "application",
+      "root": "apps/inventory-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/inventory-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/inventory-service/tsconfig.app.json"
+      }
+    },
+    "proto-definitions": {
+      "type": "library",
+      "root": "libs/proto-definitions",
+      "entryFile": "index",
+      "sourceRoot": "libs/proto-definitions/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/proto-definitions/tsconfig.lib.json"
+      }
+    }
+  }
+}

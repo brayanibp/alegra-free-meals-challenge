@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package inventory;
+
+import "google/protobuf/empty.proto";
+
+message ProductID {
+  int32 id = 1;
+}
+
+message Product {
+  int32 id = 1;
+  string name = 2;
+  int32 amount = 3;
+}
+
+message Inventory {
+  repeated Product list = 1;
+}
+
+message InventoryHistoryPoint {
+  int32 id = 1;
+  repeated Product list = 2;
+  string created_at = 3;
+}
+
+message InventoryHistory {
+  repeated InventoryHistoryPoint history = 1;
+}
+
+message IsAvailable {
+  boolean is_available = 1;
+}
+
+service InventoryService {
+  rpc GetInventory(google.protobuf.Empty) returns (Inventory) {};
+  rpc RefillProduct(ProductID) returns (Product) {};
+  rpc CheckForAvailability(inventory.Product) returns (IsAvailable) {};
+  rpc SetInventoryHistoryPoint(Product) returns (InventoryHistoryPoint) {}
+  rpc GetInventoryHistory(google.protobuf.Empty) returns (InventoryHistory) {};
+}

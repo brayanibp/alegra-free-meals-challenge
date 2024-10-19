@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package order;
+
+import "google/protobuf/empty.proto";
+
+message OrderID {
+  int32 id = 1;
+}
+
+message
+
+service OrdersService {
+  rpc PutOrder(google.protobuf.Empty) returns (OrderID) {};
+  rpc GetOrder(OrderID) returns (Order) {};
+}
