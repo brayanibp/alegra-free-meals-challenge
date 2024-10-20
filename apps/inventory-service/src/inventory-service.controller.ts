@@ -20,7 +20,6 @@ export class InventoryServiceController
   ) {}
 
   getInventory(): Inventory {
-    console.log('getInventory');
     return this.inventoryServiceService.getInventory();
   }
 
