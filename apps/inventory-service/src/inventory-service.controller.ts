@@ -1,17 +1,42 @@
 import { Controller } from '@nestjs/common';
 import { InventoryServiceService } from './inventory-service.service';
-import { EventPattern } from '@nestjs/microservices';
+import {
+  Inventory,
+  InventoryHistoryPoint,
+  InventoryServiceControllerMethods,
+  IsAvailable,
+  Product,
+  ProductID,
+  InventoryServiceController as ProtoInventoryServiceController,
+} from '@app/proto-definitions/generated/inventory';
 
 @Controller()
-export class InventoryServiceController {
+@InventoryServiceControllerMethods()
+export class InventoryServiceController
+  implements ProtoInventoryServiceController
+{
   constructor(
     private readonly inventoryServiceService: InventoryServiceService,
   ) {}
 
-  @EventPattern('GetInventory')
-  getInventory() {
-    console.log('GetInventory');
-    console.log(this.inventoryServiceService.GetInventory());
-    return this.inventoryServiceService.GetInventory();
+  getInventory(): Inventory {
+    console.log('getInventory');
+    return this.inventoryServiceService.getInventory();
+  }
+
+  refillProduct(request: ProductID): Product {
+    return this.inventoryServiceService.refillProduct(request);
+  }
+
+  checkForAvailability(request: Product): IsAvailable {
+    return this.checkForAvailability(request);
+  }
+
+  setInventoryHistoryPoint(request: Inventory): InventoryHistoryPoint {
+    return this.inventoryServiceService.setInventoryHistoryPoint(request);
+  }
+
+  getInventoryHistory() {
+    return this.inventoryServiceService.getInventoryHistory();
   }
 }

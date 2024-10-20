@@ -10,7 +10,6 @@ async function bootstrap() {
       options: {
         package: 'inventory',
         protoPath: 'libs/proto-definitions/src/inventory.proto',
-        url: 'localhost:5000',
       },
     },
   );

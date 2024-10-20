@@ -22,7 +22,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./apps/free-meals/test/jest-e2e.json",
-    "generate:proto": "protoc --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts --ts_out=./libs/proto-definitions/src/generated --js_out=import_style=commonjs,binary:./libs/proto-definitions/src/generated -I=./libs/proto-definitions/src ./libs/proto-definitions/src/*.proto"
+    "generate:proto": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=grpc_js:./libs/proto-definitions/src/generated --ts_proto_opt=nestJs=true --proto_path=./libs/proto-definitions/src ./libs/proto-definitions/src/*.proto"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.12.2",
@@ -32,7 +32,8 @@
     "@nestjs/microservices": "^10.4.5",
     "@nestjs/platform-express": "^10.0.0",
     "reflect-metadata": "^0.2.0",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "ts-proto": "^2.2.4"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

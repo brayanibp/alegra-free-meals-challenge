@@ -2,18 +2,25 @@ syntax = "proto3";
 
 package kitchen;
 
-import "google/protobuf/empty.proto";
 import "inventory.proto";
+
+service KitchenService {
+  rpc ProcessOrder(RecipeID) returns (KitchenOrder) {}
+  rpc GetOrders(Empty) returns (Orders) {}
+  rpc GetRecipes(Empty) returns (RecipesList) {}
+}
+
+message Empty {}
 
 message RecipeID {
   int32 id = 1;
-};
+}
 
 message Recipe {
   int32 id = 1;
   string name = 2;
   repeated inventory.Product ingredients = 3;
-};
+}
 
 message RecipesList {
   repeated RecipesList recipes = 1;
@@ -28,10 +35,4 @@ message KitchenOrder {
 
 message Orders {
   repeated KitchenOrder orders = 1;
-}
-
-service KitchenService {
-  rpc ProcessOrder(RecipeID) returns (KitchenOrder) {};
-  rpc GetOrders(google.protobuf.Empty) returns (Orders) {};
-  rpc GetRecipes(google.protobuf.Empty) returns (RecipesList) {};
 }
