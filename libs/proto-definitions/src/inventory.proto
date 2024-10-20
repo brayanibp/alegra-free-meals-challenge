@@ -35,7 +35,7 @@ message IsAvailable {
 service InventoryService {
   rpc GetInventory(google.protobuf.Empty) returns (Inventory) {};
   rpc RefillProduct(ProductID) returns (Product) {};
-  rpc CheckForAvailability(inventory.Product) returns (IsAvailable) {};
+  rpc CheckForAvailability(Product) returns (IsAvailable) {};
   rpc SetInventoryHistoryPoint(Product) returns (InventoryHistoryPoint) {}
   rpc GetInventoryHistory(google.protobuf.Empty) returns (InventoryHistory) {};
 }

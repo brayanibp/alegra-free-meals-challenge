@@ -23,7 +23,12 @@
       ],
       "@app/proto-definitions/*": [
         "libs/proto-definitions/src/*"
-      ]
+      ],
     }
-  }
+  },
+  "include": [
+    "libs/proto-definitions/src/generated/**/*.ts",
+    "apps/**/*.ts",
+    "libs/**/*.ts"
+  ]
 }
