@@ -23,7 +23,7 @@ message Recipe {
 }
 
 message RecipesList {
-  repeated RecipesList recipes = 1;
+  repeated Recipe recipes = 1;
 }
 
 message KitchenOrder {

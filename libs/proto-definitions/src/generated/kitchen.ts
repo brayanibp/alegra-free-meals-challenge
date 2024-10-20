@@ -25,7 +25,7 @@ export interface Recipe {
 }
 
 export interface RecipesList {
-  recipes: RecipesList[];
+  recipes: Recipe[];
 }
 
 export interface KitchenOrder {
