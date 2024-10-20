@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { InventoryServiceService } from './inventory-service.service';
+import { EventPattern } from '@nestjs/microservices';
 
 @Controller()
 export class InventoryServiceController {
@@ -7,8 +8,10 @@ export class InventoryServiceController {
     private readonly inventoryServiceService: InventoryServiceService,
   ) {}
 
-  @Get()
-  getHello(): string {
-    return this.inventoryServiceService.getHello();
+  @EventPattern('GetInventory')
+  getInventory() {
+    console.log('GetInventory');
+    console.log(this.inventoryServiceService.GetInventory());
+    return this.inventoryServiceService.GetInventory();
   }
 }
