@@ -1,18 +1,24 @@
-import { INVENTORY_SERVICE_NAME } from '@app/proto-definitions/generated/inventory';
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  INVENTORY_SERVICE_NAME,
+  InventoryServiceClient,
+} from '@app/proto-definitions/generated/inventory';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { ClientGrpc } from '@nestjs/microservices';
 
 @Injectable()
-export class AppService {
-  constructor(
-    @Inject('INVENTORY_SERVICE') private inventoryService: ClientGrpc,
-  ) {}
+export class AppService implements OnModuleInit {
+  private inventoryService: InventoryServiceClient;
+  constructor(@Inject(INVENTORY_SERVICE_NAME) private client: ClientGrpc) {}
 
-  getInventory() {
-    const service = this.inventoryService.getClientByServiceName(
+  onModuleInit() {
+    this.inventoryService = this.client.getService<InventoryServiceClient>(
       INVENTORY_SERVICE_NAME,
     );
-    console.log(service);
+  }
+
+  getInventory() {
+    const inventory = this.inventoryService.getInventory({});
+    console.log(inventory);
     return 'Hello World!';
   }
 }
