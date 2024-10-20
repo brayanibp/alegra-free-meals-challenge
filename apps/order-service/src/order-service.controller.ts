@@ -1,12 +1,24 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { OrderServiceService } from './order-service.service';
+import {
+  Order,
+  OrderID,
+  OrderList,
+  OrdersServiceController,
+  OrdersServiceControllerMethods,
+} from '@app/proto-definitions/generated/order';
 
 @Controller()
-export class OrderServiceController {
-  constructor(private readonly orderServiceService: OrderServiceService) {}
-
-  @Get()
-  getHello(): string {
-    return this.orderServiceService.getHello();
+@OrdersServiceControllerMethods()
+export class OrderServiceController implements OrdersServiceController {
+  constructor(private readonly orderService: OrderServiceService) {}
+  putOrder(): OrderID {
+    return this.orderService.putOrder();
+  }
+  getOrders(): OrderList {
+    return this.orderService.getOrders();
+  }
+  getOrder(request: OrderID): Order {
+    return this.orderService.getOrder(request);
   }
 }

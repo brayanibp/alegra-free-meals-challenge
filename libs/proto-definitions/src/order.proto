@@ -22,6 +22,6 @@ message Order {
 }
 
 message OrderList {
-  repeated kitchen.Recipe orders = 1;
+  repeated Order orders = 1;
 }
 

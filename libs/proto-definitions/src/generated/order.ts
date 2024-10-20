@@ -24,7 +24,7 @@ export interface Order {
 }
 
 export interface OrderList {
-  orders: Recipe[];
+  orders: Order[];
 }
 
 export const ORDER_PACKAGE_NAME = "order";
