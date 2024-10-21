@@ -44,7 +44,7 @@ export default function Recipes() {
                 <ul>
                   {recipe.ingredients.map((ingredient, idx) => (
                     <li key={idx}>
-                      {ingredient.name}: {ingredient.amount} {ingredient.unit}
+                      {ingredient.name}: {Number(ingredient.amount).toFixed(1)} {ingredient.unit}
                     </li>
                   ))}
                 </ul>

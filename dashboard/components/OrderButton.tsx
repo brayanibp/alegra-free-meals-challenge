@@ -10,8 +10,14 @@ export default function OrderButton() {
 
   const handleOrder = async () => {
     setIsLoading(true);
-    // Simular una petición a la API
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // QUEUE order
+    await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/order`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({}),
+    });
     setIsLoading(false);
     toast({
       title: "Pedido realizado",

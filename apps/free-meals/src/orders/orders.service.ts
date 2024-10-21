@@ -1,5 +1,6 @@
 import {
   Order,
+  OrderHistory,
   OrderID,
   OrderList,
   ORDERS_SERVICE_NAME,
@@ -32,6 +33,15 @@ export class OrdersService implements OnModuleInit {
   getOrders(): Observable<OrderList> {
     try {
       return this.ordersService.getOrders({});
+    } catch (error) {
+      console.log(error);
+      throw new Error('Something went wrong.');
+    }
+  }
+
+  getOrdersHistory(): Observable<OrderHistory> {
+    try {
+      return this.ordersService.getOrdersHistory({});
     } catch (error) {
       console.log(error);
       throw new Error('Something went wrong.');

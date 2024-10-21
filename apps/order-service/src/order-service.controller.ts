@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { OrderServiceService } from './order-service.service';
 import {
   Order,
+  OrderHistory,
   OrderID,
   OrderList,
   OrdersServiceController,
@@ -12,6 +13,9 @@ import {
 @OrdersServiceControllerMethods()
 export class OrderServiceController implements OrdersServiceController {
   constructor(private readonly orderService: OrderServiceService) {}
+  getOrdersHistory(): OrderHistory {
+    return this.orderService.getOrdersHistory();
+  }
   putOrder(): OrderID {
     return this.orderService.putOrder();
   }

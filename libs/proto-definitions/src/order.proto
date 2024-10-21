@@ -7,6 +7,7 @@ import "kitchen.proto";
 service OrdersService {
   rpc PutOrder(Empty) returns (OrderID) {};
   rpc GetOrders(Empty) returns (OrderList) {};
+  rpc GetOrdersHistory(Empty) returns (OrderHistory) {};
   rpc GetOrder(OrderID) returns (Order) {};
 }
 
@@ -23,5 +24,14 @@ message Order {
 
 message OrderList {
   repeated Order orders = 1;
+}
+
+message HistoricalOrder {
+  string dish = 1;
+  string completed_at = 2;
+}
+
+message OrderHistory {
+  repeated HistoricalOrder history = 1;
 }
 

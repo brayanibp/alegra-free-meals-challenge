@@ -1,6 +1,7 @@
 import { Recipe } from '@app/proto-definitions/generated/kitchen';
 import {
   Order,
+  OrderHistory,
   OrderID,
   OrderList,
 } from '@app/proto-definitions/generated/order';
@@ -61,6 +62,21 @@ export class OrderServiceService {
         meal: recipe,
       };
       return order;
+    } catch (error) {
+      console.log(error);
+      throw new Error('Something went wrong.');
+    }
+  }
+
+  getOrdersHistory(): OrderHistory {
+    try {
+      const order: Order = this.getOrder({ id: 1 });
+      return {
+        history: [
+          { dish: order.meal.name, completedAt: new Date().toISOString() },
+          { dish: order.meal.name, completedAt: new Date().toISOString() },
+        ],
+      };
     } catch (error) {
       console.log(error);
       throw new Error('Something went wrong.');

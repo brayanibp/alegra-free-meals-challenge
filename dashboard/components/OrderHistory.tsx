@@ -4,8 +4,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 type OrderHistoryItem = {
-  id: number;
-  date: string;
+  completedAt: string;
   dish: string;
 };
 
@@ -14,13 +13,27 @@ export default function OrderHistory() {
 
   useEffect(() => {
     // Simular la obtención del historial de pedidos
-    const mockHistory: OrderHistoryItem[] = [
-      { id: 1, date: '2023-05-01', dish: 'Arroz con Pollo' },
-      { id: 2, date: '2023-05-02', dish: 'Frijoles Refritos' },
-      { id: 3, date: '2023-05-03', dish: 'Sopa de Verduras' },
-    ];
-    setHistory(mockHistory);
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/orders/history`)
+      .then((res) => res.json())
+      .then((data: { history: OrderHistoryItem[] }) => setHistory(data.history))
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
+
+  const formatDate = (date: string) => {
+    const given_date = new Date(date);
+    const formatter = new Intl.DateTimeFormat('es-ES', {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: false,
+    });
+    const formattedDate = formatter.format(given_date);
+    return formattedDate;
+  }
 
   return (
     <Card>
@@ -28,9 +41,9 @@ export default function OrderHistory() {
         <CardTitle>Historial de Pedidos</CardTitle>
       </CardHeader>
       <CardContent>
-        {history.map((item) => (
-          <div key={item.id} className="mb-2">
-            <span>{item.date}: </span>
+        {history.map((item, index) => (
+          <div key={index} className="mb-2">
+            <span className="text-gray-500">{formatDate(item.completedAt)}: </span>
             <span className="font-bold">{item.dish}</span>
           </div>
         ))}

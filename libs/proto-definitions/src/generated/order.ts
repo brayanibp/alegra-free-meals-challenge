@@ -27,12 +27,23 @@ export interface OrderList {
   orders: Order[];
 }
 
+export interface HistoricalOrder {
+  dish: string;
+  completedAt: string;
+}
+
+export interface OrderHistory {
+  history: HistoricalOrder[];
+}
+
 export const ORDER_PACKAGE_NAME = "order";
 
 export interface OrdersServiceClient {
   putOrder(request: Empty): Observable<OrderID>;
 
   getOrders(request: Empty): Observable<OrderList>;
+
+  getOrdersHistory(request: Empty): Observable<OrderHistory>;
 
   getOrder(request: OrderID): Observable<Order>;
 }
@@ -42,12 +53,14 @@ export interface OrdersServiceController {
 
   getOrders(request: Empty): Promise<OrderList> | Observable<OrderList> | OrderList;
 
+  getOrdersHistory(request: Empty): Promise<OrderHistory> | Observable<OrderHistory> | OrderHistory;
+
   getOrder(request: OrderID): Promise<Order> | Observable<Order> | Order;
 }
 
 export function OrdersServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["putOrder", "getOrders", "getOrder"];
+    const grpcMethods: string[] = ["putOrder", "getOrders", "getOrdersHistory", "getOrder"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("OrdersService", method)(constructor.prototype[method], method, descriptor);
