@@ -5,8 +5,8 @@ services:
   api-gateway:
     container_name: api-gateway
     build:
-      context: ./dockerfiles
-      dockerfile: apigateway.dockerfile
+      context: .
+      dockerfile: ./dockerfiles/apigateway.dockerfile
     restart: unless-stopped
     ports:
       - "80:80" # TPC port for API Gateway
@@ -17,8 +17,8 @@ services:
   inventory-service:
     container_name: inventory-service
     build:
-      context: ./dockerfiles
-      dockerfile: inventory.dockerfile
+      context: .
+      dockerfile: ./dockerfiles/inventory.dockerfile
     restart: unless-stopped
     ports:
       - "5000:5000"  # gRPC service for inventory
@@ -32,8 +32,8 @@ services:
   kitchen-service:
     container_name: kitchen-service
     build:
-      context: ./dockerfiles
-      dockerfile: kitchen.dockerfile
+      context: .
+      dockerfile: ./dockerfiles/kitchen.dockerfile
     restart: unless-stopped
     ports:
       - "5001:5000"  # gRPC service for kitchen
@@ -47,8 +47,8 @@ services:
   orders-service:
     container_name: orders-service
     build:
-      context: ./dockerfiles
-      dockerfile: orders.dockerfile
+      context: .
+      dockerfile: ./dockerfiles/orders.dockerfile
     restart: unless-stopped
     ports:
       - "5002:5000"  # gRPC service for orders
@@ -62,8 +62,8 @@ services:
   postgres:
     container_name: postgres
     build:
-      context: ./dockerfiles
-      dockerfile: database.dockerfile
+      context: .
+      dockerfile: ./dockerfiles/database.dockerfile
     restart: unless-stopped
     env_file:
       - .env

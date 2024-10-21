@@ -9,7 +9,7 @@ ENV POSTGRES_DB=free_meals
 
 # Adds a SQL file to initialize the database with some data
 # This file will be executed after the database is created
-COPY ./init.sql /docker-entrypoint-initdb.d/
+COPY ./dockerfiles/init.sql /docker-entrypoint-initdb.d/
 
 # Expose the PostgreSQL port
 EXPOSE 5432
