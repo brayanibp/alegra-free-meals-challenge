@@ -5,15 +5,9 @@ node_modules
 logs
 *.log
 
-# Ignore local environment variables
-.env
-
 # Ignore test files
 test/
 *.spec.ts
-
-apps/
-dashboard/
 
 # Ignore Dockerfiles and Docker-compose files if not needed in the image
 Dockerfile

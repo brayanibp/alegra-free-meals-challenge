@@ -12,7 +12,7 @@ RUN npm install
 
 # Copy the entire application source code to the working directory
 COPY ../ .
-COPY ../apps/free-meals ./apps/free-meals
+COPY ../apps/free-meals/ ./apps/free-meals/
 
 # Build the NestJS application
 RUN npm run build
