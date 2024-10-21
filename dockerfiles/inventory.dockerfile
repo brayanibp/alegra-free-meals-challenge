@@ -12,10 +12,10 @@ RUN npm install
 
 # Copy the entire application source code to the working directory
 COPY ../ .
-COPY ../apps/inventory-service ./apps/inventory-service
+RUN rm -rf ./apps/free-meals/ ./apps/kitchen-service/ ./apps/order-service
 
 # Build the NestJS application
-RUN npm run build
+RUN npm run build:inventory
 
 # Stage 2: Create the production image
 FROM node:18-alpine AS production

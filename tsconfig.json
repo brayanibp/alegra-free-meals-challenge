@@ -24,6 +24,12 @@
       "@app/proto-definitions/*": [
         "libs/proto-definitions/src/*"
       ],
+      "@app/database": [
+        "libs/database/src"
+      ],
+      "@app/database/*": [
+        "libs/database/src/*"
+      ]
     }
   },
   "include": [

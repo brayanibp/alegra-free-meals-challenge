@@ -1,48 +1,63 @@
+networks:
+  free_meals:
+    driver: bridge
 services:
   api-gateway:
     container_name: api-gateway
     build:
       context: ./dockerfiles
       dockerfile: apigateway.dockerfile
+    restart: unless-stopped
     ports:
       - "80:80" # TPC port for API Gateway
     env_file: 
       - .env
+    networks:
+      - free_meals
   inventory-service:
     container_name: inventory-service
     build:
       context: ./dockerfiles
       dockerfile: inventory.dockerfile
+    restart: unless-stopped
     ports:
       - "5000:5000"  # gRPC service for inventory
     env_file: 
       - .env
     depends_on:
       - postgres
+    networks:
+      - free_meals
 
   kitchen-service:
     container_name: kitchen-service
     build:
       context: ./dockerfiles
       dockerfile: kitchen.dockerfile
+    restart: unless-stopped
     ports:
       - "5001:5000"  # gRPC service for kitchen
     env_file:
       - .env
     depends_on:
       - postgres
+    networks:
+      - free_meals
 
   orders-service:
     container_name: orders-service
     build:
       context: ./dockerfiles
       dockerfile: orders.dockerfile
+    restart: unless-stopped
     ports:
       - "5002:5000"  # gRPC service for orders
     env_file:
       - .env
     depends_on:
       - postgres
+    networks:
+      - free_meals
 
   postgres:
     container_name: postgres
@@ -56,6 +71,8 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - free_meals
 
 volumes:
   postgres_data:

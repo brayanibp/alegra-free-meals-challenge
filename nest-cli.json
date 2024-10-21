@@ -58,6 +58,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/proto-definitions/tsconfig.lib.json"
       }
+    },
+    "database": {
+      "type": "library",
+      "root": "libs/database",
+      "entryFile": "index",
+      "sourceRoot": "libs/database/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/database/tsconfig.lib.json"
+      }
     }
   }
 }
