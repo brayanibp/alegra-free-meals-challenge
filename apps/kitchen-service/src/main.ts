@@ -11,6 +11,7 @@ async function bootstrap() {
       options: {
         package: KITCHEN_PACKAGE_NAME,
         protoPath: 'libs/proto-definitions/src/kitchen.proto',
+        url: 'localhost:5001',
       },
     },
   );

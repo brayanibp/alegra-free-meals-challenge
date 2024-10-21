@@ -11,6 +11,7 @@ async function bootstrap() {
       options: {
         package: ORDER_PACKAGE_NAME,
         protoPath: 'libs/proto-definitions/src/order.proto',
+        url: 'localhost:5002',
       },
     },
   );

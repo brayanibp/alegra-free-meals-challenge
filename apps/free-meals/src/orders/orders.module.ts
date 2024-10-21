@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { OrdersController } from './orders.controller';
-import { ClientsModule } from '@nestjs/microservices';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 import {
   ORDER_PACKAGE_NAME,
   ORDERS_SERVICE_NAME,
@@ -12,6 +12,7 @@ import {
     ClientsModule.register([
       {
         name: ORDERS_SERVICE_NAME,
+        transport: Transport.GRPC,
         options: {
           package: ORDER_PACKAGE_NAME,
           protoPath: 'libs/proto-definitions/src/order.proto',

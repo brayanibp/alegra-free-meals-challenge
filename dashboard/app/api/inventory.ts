@@ -5,7 +5,7 @@ export async function POST(request: Request) {
 }
 
 export async function GET(request: Request) {
-  const res = await request.json();
+  const res = await fetch("http://localhost:3000/inventory");
   console.log(res);
   return Response.json(res);
 }

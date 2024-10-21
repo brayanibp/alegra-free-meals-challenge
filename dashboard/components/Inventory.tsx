@@ -21,6 +21,16 @@ export default function Inventory() {
       { name: 'Tomates', quantity: 15, unit: 'kg' },
       { name: 'Cebollas', quantity: 10, unit: 'kg' },
     ];
+
+    // getting inventory from api gateway
+    fetch('http://localhost:3000/inventory')
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+
     setInventory(mockInventory);
   }, []);
 
