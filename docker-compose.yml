@@ -1,0 +1,62 @@
+services:
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: ./dockerfiles
+      dockerfile: apigateway.dockerfile
+    ports:
+      - "80:3000"
+    env_file: 
+      - .env
+  inventory-service:
+    container_name: inventory-service
+    build:
+      context: ./dockerfiles
+      dockerfile: inventory.dockerfile
+    ports:
+      - "5000:5000"  # gRPC service for inventory
+    env_file: 
+      - .env
+    depends_on:
+      - postgres
+
+  kitchen-service:
+    container_name: kitchen-service
+    build:
+      context: ./dockerfiles
+      dockerfile: kitchen.dockerfile
+    ports:
+      - "5001:5000"  # gRPC service for kitchen
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+
+  orders-service:
+    container_name: orders-service
+    build:
+      context: ./dockerfiles
+      dockerfile: orders.dockerfile
+    ports:
+      - "5002:5000"  # gRPC service for orders
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: postgres_password
+      POSTGRES_DB: inventory_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
+    driver: local

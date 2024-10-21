@@ -6,7 +6,11 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build && cp -R ./libs/proto-definitions/src ./dist/apps/libs/proto-definitions/src",
+    "build": "npm run generate:proto && npm run build:main && npm run build:inventory && npm run build:kitchen && npm run build:orders",
+    "build:main": "nest build free-meals",
+    "build:inventory": "nest build inventory-service",
+    "build:kitchen": "nest build kitchen-service",
+    "build:orders": "nest build order-service",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
