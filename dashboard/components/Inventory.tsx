@@ -4,34 +4,31 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 type InventoryItem = {
+  id: number;
   name: string;
-  quantity: number;
-  unit: string;
+  amount: number;
+  unit?: string | 'kg';
 };
 
 export default function Inventory() {
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
 
   useEffect(() => {
-    // Simular la obtención del inventario
-    const mockInventory: InventoryItem[] = [
-      { name: 'Arroz', quantity: 50, unit: 'kg' },
-      { name: 'Frijoles', quantity: 30, unit: 'kg' },
-      { name: 'Pollo', quantity: 20, unit: 'kg' },
-      { name: 'Tomates', quantity: 15, unit: 'kg' },
-      { name: 'Cebollas', quantity: 10, unit: 'kg' },
-    ];
-
     // getting inventory from api gateway
-    fetch('http://localhost:3000/inventory')
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/inventory`)
       .then((res) => {
-        console.log(res);
+        res.json()
+          .then((data: { list: InventoryItem[] }) => {
+            setInventory(data.list);
+          })
+          .catch((error) => {
+            console.log(error)
+          });
       })
       .catch((error) => {
         console.log(error)
       });
 
-    setInventory(mockInventory);
   }, []);
 
   return (
@@ -40,10 +37,10 @@ export default function Inventory() {
         <CardTitle>Inventario de Alimentos</CardTitle>
       </CardHeader>
       <CardContent>
-        {inventory.map((item, index) => (
-          <div key={index} className="mb-2">
+        {inventory?.map((item) => (
+          <div key={item.id} className="mb-2">
             <span>{item.name}: </span>
-            <span className="font-bold">{item.quantity} {item.unit}</span>
+            <span className="font-bold">{item.amount} {item.unit ?? 'kg'}</span>
           </div>
         ))}
       </CardContent>

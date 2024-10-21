@@ -10,35 +10,24 @@ import {
 } from "@/components/ui/accordion"
 
 type Recipe = {
+  id: number;
   name: string;
-  ingredients: { name: string; quantity: number; unit: string }[];
+  ingredients: { name: string; amount: number; unit: string; }[];
 };
 
 export default function Recipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
   useEffect(() => {
-    // Simular la obtención de recetas
-    const mockRecipes: Recipe[] = [
-      {
-        name: 'Arroz con Pollo',
-        ingredients: [
-          { name: 'Arroz', quantity: 2, unit: 'tazas' },
-          { name: 'Pollo', quantity: 500, unit: 'g' },
-          { name: 'Cebolla', quantity: 1, unit: 'unidad' },
-        ]
-      },
-      {
-        name: 'Frijoles Refritos',
-        ingredients: [
-          { name: 'Frijoles', quantity: 2, unit: 'tazas' },
-          { name: 'Cebolla', quantity: 1, unit: 'unidad' },
-          { name: 'Aceite', quantity: 2, unit: 'cucharadas' },
-        ]
-      },
-      // Añadir más recetas aquí...
-    ];
-    setRecipes(mockRecipes);
+    // get recipes
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/kitchen/recipes`)
+      .then((res) => res.json())
+      .then((data: { recipes: Recipe[] }) => {
+        setRecipes(data.recipes);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   return (
@@ -55,7 +44,7 @@ export default function Recipes() {
                 <ul>
                   {recipe.ingredients.map((ingredient, idx) => (
                     <li key={idx}>
-                      {ingredient.name}: {ingredient.quantity} {ingredient.unit}
+                      {ingredient.name}: {ingredient.amount} {ingredient.unit}
                     </li>
                   ))}
                 </ul>
