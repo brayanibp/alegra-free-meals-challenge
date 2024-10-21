@@ -2,12 +2,12 @@
 FROM postgres:16
 
 # Set environment variables for the PostgreSQL database
-# These can also be set dynamically in your Docker Compose file or Kubernetes manifest
-ENV POSTGRES_USER=myuser
-ENV POSTGRES_PASSWORD=mypassword
-ENV POSTGRES_DB=mydatabase
+# These will be default values, real values should be set dynamically from Docker Compose file or Kubernetes manifest
+ENV POSTGRES_USER=free_meals
+ENV POSTGRES_PASSWORD=secret
+ENV POSTGRES_DB=free_meals
 
-# Optionally, you can add a SQL file to initialize the database with some data
+# Adds a SQL file to initialize the database with some data
 # This file will be executed after the database is created
 COPY ./init.sql /docker-entrypoint-initdb.d/
 
