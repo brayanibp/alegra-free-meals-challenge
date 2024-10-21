@@ -5,7 +5,7 @@ services:
       context: ./dockerfiles
       dockerfile: apigateway.dockerfile
     ports:
-      - "80:3000"
+      - "80:80" # TPC port for API Gateway
     env_file: 
       - .env
   inventory-service:

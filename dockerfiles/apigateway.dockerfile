@@ -12,6 +12,7 @@ RUN npm install
 
 # Copy the entire application source code to the working directory
 COPY ../ .
+COPY ../apps/free-meals ./apps/free-meals
 
 # Build the NestJS application
 RUN npm run build
@@ -32,11 +33,11 @@ COPY --from=builder /usr/src/app/dist ./dist
 # Copy necessary files for gRPC (e.g., proto definitions)
 COPY --from=builder /usr/src/app/libs/proto-definitions ./libs/proto-definitions
 
-# Expose the gRPC service port
+# Expose the service port
 EXPOSE 3000
 
 # Set environment variables for production
 ENV NODE_ENV=production
 
 # Run the gRPC microservice using the built NestJS application
-CMD ["node", "dist/apps/free-mails/main.js"]
+CMD ["node", "dist/apps/free-meals/main.js"]

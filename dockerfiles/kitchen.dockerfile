@@ -12,6 +12,7 @@ RUN npm install
 
 # Copy the entire application source code to the working directory
 COPY ../ .
+COPY ../apps/kitchen-service ./apps/kitchen-service
 
 # Build the NestJS application
 RUN npm run build
@@ -33,10 +34,10 @@ COPY --from=builder /usr/src/app/dist ./dist
 COPY --from=builder /usr/src/app/libs/proto-definitions ./libs/proto-definitions
 
 # Expose the gRPC service port
-EXPOSE 3000
+EXPOSE 5001
 
 # Set environment variables for production
 ENV NODE_ENV=production
 
 # Run the gRPC microservice using the built NestJS application
-CMD ["node", "dist/main.js"]
+CMD ["node", "dist/apps/kitchen-service/main.js"]
