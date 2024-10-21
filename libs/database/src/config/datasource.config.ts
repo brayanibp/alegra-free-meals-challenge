@@ -1,7 +1,6 @@
-// libs/database/src/typeorm.config.ts
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
-// import { join } from 'path';
+import { join } from 'path';
 
 export const typeOrmConfig = (
   configService: ConfigService,
@@ -12,7 +11,7 @@ export const typeOrmConfig = (
   username: configService.get<string>('DATABASE_USER'),
   password: configService.get<string>('DATABASE_PASSWORD'),
   database: configService.get<string>('DATABASE_NAME'),
-  // entities: [join(__dirname, '/../**/*.entity{.ts,.js}')],
+  entities: [join(__dirname, '/../**/*.entity{.ts,.js}')],
   synchronize: false, // Set to true only in development
   // migrations: [join(__dirname, '/../migrations/*{.ts,.js}')],
   logging: configService.get<boolean>('DATABASE_LOGGING'),
